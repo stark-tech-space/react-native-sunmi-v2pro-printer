@@ -6,7 +6,12 @@ import SunmiV2ProPrinter from 'react-native-sunmi-v2pro-printer';
 export default function App() {
   const handlePress = async () => {
     await SunmiV2ProPrinter.labelLocate();
-    await SunmiV2ProPrinter.printText('hello');
+    await SunmiV2ProPrinter.lineWrap(1);
+    await SunmiV2ProPrinter.setAlignment(0);
+    await SunmiV2ProPrinter.printText('商品         豆浆\n', 24, true, false);
+    await SunmiV2ProPrinter.printText('到期时间         12-13  14时\n', 24, true, false);
+    await SunmiV2ProPrinter.printQRCode('https://www.weserve.tw', 5, 0);
+    await SunmiV2ProPrinter.lineWrap(1);
     await SunmiV2ProPrinter.labelOutput();
   };
 
