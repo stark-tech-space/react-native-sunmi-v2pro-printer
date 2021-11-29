@@ -1,4 +1,4 @@
-package com.react.utils;
+package com.reactlibrary.utils;
 
 import android.graphics.Bitmap;
 import android.util.Xml;

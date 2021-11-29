@@ -8,7 +8,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
-import com.react.utils.SunmiPrintHelper;
+import com.reactlibrary.utils.SunmiPrintHelper;
 
 
 
@@ -18,7 +18,7 @@ public class ReactNativeSunmiV2proPrinterModule extends ReactContextBaseJavaModu
     public ReactNativeSunmiV2proPrinterModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
-        SunmiPrintHelper.getInstance().initSunmiPrinterService(this);
+        SunmiPrintHelper.getInstance().initSunmiPrinterService(reactContext);
     }
 
     @Override

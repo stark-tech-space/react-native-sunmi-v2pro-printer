@@ -1,4 +1,4 @@
-package com.react.utils;
+package com.reactlibrary.utils;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

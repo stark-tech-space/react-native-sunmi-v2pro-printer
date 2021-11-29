@@ -1,4 +1,4 @@
-package com.react.threadhelp;
+package com.reactlibrary.threadhelp;
 
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;

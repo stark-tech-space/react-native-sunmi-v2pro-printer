@@ -1,10 +1,9 @@
-package com.react.utils;
+package com.reactlibrary.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.RemoteException;
-import android.widget.Toast;
 
 
 import com.sunmi.peripheral.printer.ExceptionConst;
@@ -15,7 +14,6 @@ import com.sunmi.peripheral.printer.InnerPrinterManager;
 import com.sunmi.peripheral.printer.InnerResultCallback;
 import com.sunmi.peripheral.printer.SunmiPrinterService;
 import com.sunmi.peripheral.printer.WoyouConsts;
-import com.sunmi.printerhelper.R;
 
 /**
  * <pre>
@@ -484,7 +482,6 @@ public class SunmiPrintHelper {
 
         try {
             sunmiPrinterService.enterPrinterBuffer(true);
-            printExample(context);
             sunmiPrinterService.exitPrinterBufferWithCallback(true, callbcak);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -602,89 +599,6 @@ public class SunmiPrintHelper {
     }
 
     /**
-     *  Sample print receipt
-     */
-    public void printExample(Context context){
-        if(sunmiPrinterService == null){
-            //TODO Service disconnection processing
-            return ;
-        }
-
-        try {
-            int paper = sunmiPrinterService.getPrinterPaper();
-            sunmiPrinterService.printerInit(null);
-            sunmiPrinterService.setAlignment(1, null);
-            sunmiPrinterService.printText("测试样张\n", null);
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sunmi);
-            sunmiPrinterService.printBitmap(bitmap, null);
-            sunmiPrinterService.lineWrap(1, null);
-            sunmiPrinterService.setAlignment(0, null);
-            try {
-                sunmiPrinterService.setPrinterStyle(WoyouConsts.SET_LINE_SPACING, 0);
-            } catch (RemoteException e) {
-                sunmiPrinterService.sendRAWData(new byte[]{0x1B, 0x33, 0x00}, null);
-            }
-            sunmiPrinterService.printTextWithFont("说明：这是一个自定义的小票样式例子,开发者可以仿照此进行自己的构建\n",
-                    null, 12, null);
-            if(paper == 1){
-                sunmiPrinterService.printText("--------------------------------\n", null);
-            }else{
-                sunmiPrinterService.printText("------------------------------------------------\n",
-                        null);
-            }
-            try {
-                sunmiPrinterService.setPrinterStyle(WoyouConsts.ENABLE_BOLD, WoyouConsts.ENABLE);
-            } catch (RemoteException e) {
-                sunmiPrinterService.sendRAWData(ESCUtil.boldOn(), null);
-            }
-            String txts[] = new String[]{"商品", "价格"};
-            int width[] = new int[]{1, 1};
-            int align[] = new int[]{0, 2};
-            sunmiPrinterService.printColumnsString(txts, width, align, null);
-            try {
-                sunmiPrinterService.setPrinterStyle(WoyouConsts.ENABLE_BOLD, WoyouConsts.DISABLE);
-            } catch (RemoteException e) {
-                sunmiPrinterService.sendRAWData(ESCUtil.boldOff(), null);
-            }
-            if(paper == 1){
-                sunmiPrinterService.printText("--------------------------------\n", null);
-            }else{
-                sunmiPrinterService.printText("------------------------------------------------\n",
-                        null);
-            }
-            txts[0] = "汉堡";
-            txts[1] = "17¥";
-            sunmiPrinterService.printColumnsString(txts, width, align, null);
-            txts[0] = "可乐";
-            txts[1] = "10¥";
-            sunmiPrinterService.printColumnsString(txts, width, align, null);
-            txts[0] = "薯条";
-            txts[1] = "11¥";
-            sunmiPrinterService.printColumnsString(txts, width, align, null);
-            txts[0] = "炸鸡";
-            txts[1] = "11¥";
-            sunmiPrinterService.printColumnsString(txts, width, align, null);
-            txts[0] = "圣代";
-            txts[1] = "10¥";
-            sunmiPrinterService.printColumnsString(txts, width, align, null);
-            if(paper == 1){
-                sunmiPrinterService.printText("--------------------------------\n", null);
-            }else{
-                sunmiPrinterService.printText("------------------------------------------------\n",
-                        null);
-            }
-            sunmiPrinterService.printTextWithFont("总计:          59¥\b", null, 40, null);
-            sunmiPrinterService.setAlignment(1, null);
-            sunmiPrinterService.printQRCode("谢谢惠顾", 10, 0, null);
-            sunmiPrinterService.setFontSize(36, null);
-            sunmiPrinterService.printText("谢谢惠顾", null);
-            sunmiPrinterService.autoOutPaper(null);
-         } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Used to report the real-time query status of the printer, which can be used before each
      * printing
      */
@@ -733,7 +647,6 @@ public class SunmiPrintHelper {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
     }
 
     /**

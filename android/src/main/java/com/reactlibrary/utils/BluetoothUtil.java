@@ -1,13 +1,10 @@
-package com.react.utils;
+package com.reactlibrary.utils;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.sunmi.printerhelper.R;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -56,23 +53,19 @@ public class BluetoothUtil {
     public static boolean connectBlueTooth(Context context) {
         if (bluetoothSocket == null) {
             if (getBTAdapter() == null) {
-                Toast.makeText(context,  R.string.toast_3, Toast.LENGTH_SHORT).show();
                 return false;
             }
             if (!getBTAdapter().isEnabled()) {
-                Toast.makeText(context, R.string.toast_4, Toast.LENGTH_SHORT).show();
                 return false;
             }
             BluetoothDevice device;
             if ((device = getDevice(getBTAdapter())) == null) {
-                Toast.makeText(context, R.string.toast_5, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             try {
                 bluetoothSocket = getSocket(device);
             } catch (IOException e) {
-                Toast.makeText(context, R.string.toast_6, Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
