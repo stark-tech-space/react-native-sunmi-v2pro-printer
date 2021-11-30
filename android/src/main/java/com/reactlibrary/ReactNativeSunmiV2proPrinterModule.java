@@ -47,6 +47,11 @@ public class ReactNativeSunmiV2proPrinterModule extends ReactContextBaseJavaModu
     }
 
     @ReactMethod
+    public void printTableString(String[] txts, int[] width, int[] align) {
+      SunmiPrintHelper.getInstance().printTable(txts, width, align);
+    }
+
+    @ReactMethod
     public void printQRCode(String data, int modulesize, int errorlevel) {
       SunmiPrintHelper.getInstance().printQr(data, modulesize, errorlevel);
     }
